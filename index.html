@@ -19,15 +19,28 @@
     </div>
 	<div id='myDiv'></div>
 	<button type="button" id="playButton">Play data</button>
+
+	<img id="cocina" src="cocina.jpg" alt="cocina">
+	<img id="dormitorio" src="dorm.jpg" alt="dormitorio">
 </body>
 
 
 <script>
-
+	
+	const image1 = document.getElementById('cocina');
+        const image2 = document.getElementById('dormitorio');
 	// Escuchar el cambio en el menú de selección y actualizar el gráfico
 	roomSelect.addEventListener('change', function() {
 		var selectedRoom = this.value;  // Obtener el año seleccionado
 
+		image1.style.display = 'none'; // Hide both images
+            	image2.style.display = 'none';
+
+            	if (selectedValue === 'Cocina') {
+                	image1.style.display = 'block'; // Show image1
+            	} else if (selectedValue === 'Dormitorio') {
+                	image2.style.display = 'block'; // Show image2
+            	}
 	});
 
 	
