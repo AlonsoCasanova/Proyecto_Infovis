@@ -22,7 +22,6 @@
 	<!-- código del profe, para cambiar de habitación-->
         <label for="roomSelect">Selecciona habitación:</label>
         <select id="roomSelect">
-			<option value="Seleccion">Seleccionar</option>
 			<option value="cocina">Cocina</option>
 			<option value="dormitorio">Dormitorio</option>
 		</select>
@@ -39,15 +38,15 @@
         const image2 = document.getElementById('dormitorio');
 	const selector = document.getElementById('roomSelect');
 	// Escuchar el cambio en el menú de selección y actualizar el gráfico
-	roomSelect.addEventListener('change', function() {
-		var selectedRoom = this.value;  // Obtener el año seleccionado
+	selector.addEventListener('change', function() {
+		const selectedRoom = this.value;  // Obtener el año seleccionado
 
 		image1.style.display = 'none'; // Hide both images
             	image2.style.display = 'none';
 
-            	if (selectedValue === 'cocina') {
+            	if (selectedRoom === 'cocina') {
                 	image1.style.display = 'block'; // Show image1
-            	} else if (selectedValue === 'dormitorio') {
+            	} else if (selectedRoom === 'dormitorio') {
                 	image2.style.display = 'block'; // Show image2
             	} else {
 			document.write("<p>Hay un error con el control de flujo</p>");
