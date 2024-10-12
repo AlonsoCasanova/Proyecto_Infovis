@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- 
-	     Hasta ahora el problema es que no se muestra la imagen despues de seleccionar en el menu
-	     no sé porqué no funciona, las imagenes si cargan, pero no se muestran despues de seleccionar
-	     Si no logro hacerlo funcionar habría que solo mostrar las dos imagenes y solucionarlo para la 
-	     otra entrega 
-	-->
+
 	<title>Consumo Eléctrico Electrodomésticos</title>
 	<!-- <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script> -->
 	<!-- <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script> -->
@@ -22,12 +17,13 @@
 	<!-- código del profe, para cambiar de habitación-->
         <label for="roomSelect">Selecciona habitación:</label>
         <select id="roomSelect">
+			<option value="seleccion">Seleccionar Habitación</option>
 			<option value="cocina">Cocina</option>
 			<option value="dormitorio">Dormitorio</option>
 		</select>
     </div>
 
-	<img id="cocina" src="cocina.jpg" alt="cocina" style="display: none;">
+	<img id="cocina" src="cocina.png" alt="cocina" style="display: none;">
 	<img id="dormitorio" src="dorm.jpg" alt="dormitorio" style="display: none;">
 </body>
 
