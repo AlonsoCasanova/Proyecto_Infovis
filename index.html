@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- 
+	     Hasta ahora el problema es que no se muestra la imagen despues de seleccionar en el menu
+	     no sé porqué no funciona, las imagenes si cargan, pero no se muestran despues de seleccionar
+	     Si no logro hacerlo funcionar habría que solo mostrar las dos imagenes y solucionarlo para la 
+	     otra entrega 
+	-->
 	<title>Consumo Eléctrico Electrodomésticos</title>
 	<!-- <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script> -->
 	<!-- <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script> -->
    <!-- <script src='https://surikov.github.io/webaudiofontdata/sound/0730_FluidR3_GM_sf2_file.js'></script> -->
-	<style>
+	<!--<style>
         	img {
             		display: none; /* Hide images by default */
         	}
-    	</style>
+    	</style>-->
 </head>
 <body>
     <div>
@@ -42,7 +48,9 @@
                 	image1.style.display = 'block'; // Show image1
             	} else if (selectedValue === 'Dormitorio') {
                 	image2.style.display = 'block'; // Show image2
-            	}
+            	} else {
+			document.write("<p>Hay un error con el control de flujo</p>");
+		}
 	});
 
 	
