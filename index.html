@@ -22,9 +22,9 @@
 	<!-- código del profe, para cambiar de habitación-->
         <label for="roomSelect">Selecciona habitación:</label>
         <select id="roomSelect">
-			<option value="Seleccion">Seleccione habitación</option>
-			<option value="Cocina">Cocina</option>
-			<option value="Dormitorio">Dormitorio</option>
+			<option value="Seleccion">Seleccionar</option>
+			<option value="cocina">Cocina</option>
+			<option value="dormitorio">Dormitorio</option>
 		</select>
     </div>
 
@@ -37,6 +37,7 @@
 	
 	const image1 = document.getElementById('cocina');
         const image2 = document.getElementById('dormitorio');
+	const selector = document.getElementById('roomSelect');
 	// Escuchar el cambio en el menú de selección y actualizar el gráfico
 	roomSelect.addEventListener('change', function() {
 		var selectedRoom = this.value;  // Obtener el año seleccionado
