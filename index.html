@@ -3,7 +3,7 @@
 <head>
 
 	<title>Consumo Eléctrico Electrodomésticos</title>
-	<script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script> 
+	<script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
 
 	<style>
 		#graph{
@@ -51,10 +51,10 @@
 
 	// Los círculos que señalan se ponen en estos puntos
 	const x = 2; 
-        const y = 11; 
-        const x2 = 9;
-        const y2 = 16;
-        const radius = 0.5;
+    const y = 11; 
+    const x2 = 9;
+    const y2 = 16;
+    const radius = 0.5;
 
 	// Para gráfico dormitorio, no se bien como lo vamos a hacer si tenemos dos graficos
 	const data = [{
@@ -68,9 +68,18 @@
         }];
 
         const layout = {
-            title: 'Filled Circle and Lines',
-            xaxis: { range: [0, 30], title: 'X-axis' },
-            yaxis: { range: [0, 30], title: 'Y-axis' },
+            xaxis: { range: [0, 30], showgrid: false, showline: false, zeroline: false, showticklabels: false},
+            yaxis: { range: [0, 30], showline: false, zeroline: false, showticklabels: false},
+            /* xaxis: {
+                showgrid: true, // Hide grid lines
+                zeroline: true, // Hide zero line
+                showline: true  // Hide axis line
+            },
+            yaxis: {
+                showgrid: true, // Hide grid lines
+                zeroline: true, // Hide zero line
+                showline: true  // Hide axis line
+            }, */
             images: [
                 {
                     x: 0,
@@ -169,6 +178,38 @@
                     line: {
                         color: 'blue',
                     }
+                }
+            ],
+            annotations: [
+                {
+                    x: 25.5, 
+                    y: 16.3, 
+                    xref: 'x',
+                    yref: 'y',
+                    text: 'Televisor: 16.67 horas',
+                    showarrow: false,
+                    bgcolor: 'blue', // Background color for the annotation box
+                    bordercolor: 'blue', // Border color for the annotation box
+                    borderwidth: 3,
+                    font: {
+                        size: 12,
+                        color: 'white' // Text color
+                    },
+                },
+                {
+                    x: 24, 
+                    y: 12, 
+                    xref: 'x',
+                    yref: 'y',
+                    text: 'Aire Acondicionado frio: 820 horas',
+                    showarrow: false,
+                    bgcolor: 'blue', // Background color for the annotation box
+                    bordercolor: 'blue', // Border color for the annotation box
+                    borderwidth: 3,
+                    font: {
+                        size: 12,
+                        color: 'white' // Text color
+                    },
                 }
             ],
             showlegend: false
