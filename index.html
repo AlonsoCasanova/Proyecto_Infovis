@@ -4,6 +4,18 @@
 
 	<title>Consumo Eléctrico Electrodomésticos</title>
 
+	<style>
+		#graph{
+			position: absolute;
+			width: 800px;
+			height: 800px;
+			border: 0px solid #333;
+			left: 0px;
+			top: 0px;
+		        right: 0px;
+		        z-index: 1;
+		}
+	</style>
 </head>
 <body>
     <div>
@@ -25,6 +37,7 @@
 
 	<img id="cocina" src="cocina.png" alt="cocina" style="display: none;" width="900" height="500">
 	<img id="dormitorio" src="dorm.jpg" alt="dormitorio" style="display: none;" width="900" height="500">
+	<div id="graph"></div>
 </body>
 
 
@@ -32,18 +45,147 @@
 	
 	const image1 = document.getElementById('cocina');
         const image2 = document.getElementById('dormitorio');
+	const graphDiv = document.getElementById('graph');
 	const selector = document.getElementById('roomSelect');
+
+	// Los círculos que señalan se ponen en estos puntos
+	const x = 2; 
+        const y = 11; 
+        const x2 = 9;
+        const y2 = 16;
+        const radius = 0.5;
+
+	// Para gráfico dormitorio, no se bien como lo vamos a hacer si tenemos dos graficos
+	const data = [{
+            x: [],
+            y: [],
+            mode: 'markers',
+            type: 'scatter',
+            marker: {
+                size: 1 
+            }
+        }];
+
+        const layout = {
+            title: 'Filled Circle and Lines',
+            xaxis: { range: [0, 30], title: 'X-axis' },
+            yaxis: { range: [0, 30], title: 'Y-axis' },
+            images: [
+                {
+                    x: 0,
+                    y: 0,
+                    sizex: 0.5,
+                    sizey: 0.75,
+                    xanchor: "rigth",
+                    xref: "paper",
+                    yanchor: "bottom",
+                    yref: "paper",
+                    source: "https://raw.githubusercontent.com/AlonsoCasanova/Proyecto_Infovis/refs/heads/main/dorm2.jpg"
+                }
+            ],
+            shapes: [
+                {
+                    type: 'circle',
+                    xref: 'x',
+                    yref: 'y',
+                    x0: x - radius,
+                    y0: y - radius,
+                    x1: x + radius,
+                    y1: y + radius,
+                    fillcolor: 'blue',
+                    opacity: 0.5,
+                    line: {
+                        color: 'blue',
+                    },
+                },
+                {
+                    type: 'line',
+                    xref: 'x',
+                    yref: 'y',
+                    x0: x + radius * Math.cos(45),   
+                    y0: y + radius * Math.sin(45),
+                    x1: x + radius * Math.cos(45) + 5,    
+                    y1: y + radius * Math.sin(45) + 5,
+                    fillcolor: 'blue',
+                    opacity: 0.5,
+                    line: {
+                        color: 'blue',
+                    },
+                },
+                {
+                    type: 'line',
+                    xref: 'x',
+                    yref: 'y',
+                    x0: x + radius * Math.cos(45) + 5,     // Empieza donde termina la otra
+                    y0: y + radius * Math.sin(45) + 5,
+                    x1: x + radius * Math.cos(45) + 20,     
+                    y1: y + radius * Math.sin(45) + 5,
+                    fillcolor: 'blue',
+                    opacity: 0.5,
+                    line: {
+                        color: 'blue',
+                    }
+                },
+
+                {
+                    type: 'circle',
+                    xref: 'x',
+                    yref: 'y',
+                    x0: x2 - radius,
+                    y0: y2 - radius,
+                    x1: x2 + radius,
+                    y1: y2 + radius,
+                    fillcolor: 'blue',
+                    opacity: 0.5,
+                    line: {
+                        color: 'blue',
+                    },
+                },
+                {
+                    type: 'line',
+                    xref: 'x',
+                    yref: 'y',
+                    x0: x2 + radius * Math.cos(45),   
+                    y0: y2 - radius * Math.sin(45),
+                    x1: x2 + radius * Math.cos(45) + 3,    
+                    y1: y2 - radius * Math.sin(45) - 3,
+                    fillcolor: 'blue',
+                    opacity: 0.5,
+                    line: {
+                        color: 'blue',
+                    },
+                },
+                {
+                    type: 'line',
+                    xref: 'x',
+                    yref: 'y',
+                    x0: x2 + radius * Math.cos(45) + 3,     // Empieza donde termina la otra
+                    y0: y2 - radius * Math.sin(45) - 3,
+                    x1: x2 + radius * Math.cos(45) + 15,     
+                    y1: y2 - radius * Math.sin(45) - 3,
+                    fillcolor: 'blue',
+                    opacity: 0.5,
+                    line: {
+                        color: 'blue',
+                    }
+                }
+            ],
+            showlegend: false
+        };
+	
 	// Escuchar el cambio en el menú de selección y actualizar el gráfico
 	selector.addEventListener('change', function() {
 		const selectedRoom = this.value;  
 
 		image1.style.display = 'none';
             	image2.style.display = 'none';
+		graphDiv.style.display = 'none';
 
             	if (selectedRoom === 'cocina') {
                 	image1.style.display = 'block'; 
             	} else if (selectedRoom === 'dormitorio') {
-                	image2.style.display = 'block'; 
+			graphDiv.style.display = 'block';
+                	// image2.style.display = 'block'; 
             	} else {
 			document.write("<p>Hay un error con el control de flujo</p>");
 		}
