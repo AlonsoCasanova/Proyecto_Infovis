@@ -1,230 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Pruebas</title>
+  <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
+  <style>
+    #graph
+    {
+        position: absolute;
+		width: 800px;
+		height: 800px;
+		border: 0px solid #333;
+		left: 0px;
+		top: 0px;
+        right: 0px;
+        z-index: 1;
+    }
+  </style>
 
-	<title>Consumo Eléctrico Electrodomésticos</title>
-	<script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
-
-	<style>
-		#graph{
-			position: relative;
-			width: 800px;
-			height: 800px;
-			border: 0px solid #333;
-			left: 0px;
-			top: 0px;
-		        right: 0px;
-		        z-index: 1;
-		}
-	</style>
 </head>
 <body>
-    <div>
+  <div id='myDiv'>
 
-	<h2>Consumo Eléctrico de Electrodomésticos</h2>
-	<p>Esta infografía compara la cantidad de Watts usados por un artefacto eléctrico en un mes en promedio
-		con la cantidad de horas de luz que genera una ampolleta de 60 kilo Watts con esa misma cantidad de 
-		electricidad.
-	</p>
-	    
-	<!-- código del profe, para cambiar de habitación-->
-        <label for="roomSelect">Selecciona habitación:</label>
-        <select id="roomSelect">
-			<option value="seleccion">Seleccionar Habitación</option>
-			<option value="cocina">Cocina</option>
-			<option value="dormitorio">Dormitorio</option>
-		</select>
-    </div>
+  <!-- <img id="dormitorio" src="dorm1.jpg" alt="dormitorio"> --><!--  width="600" height="500"> -->
+  <div id="graph"></div>
 
-	<img id="cocina" src="cocina.png" alt="cocina" style="display: none;" width="900" height="500">
-	<img id="dormitorio" src="dorm.jpg" alt="dormitorio" style="display: none;" width="900" height="500">
-	<div id="graph"></div>
+  </div>
+    <script>
+        var data = [{
+            type: 'bar',
+            x: [
+                "Cocina eléctrica (1800W)", "Hervidor", "Horno eléctrico", "Microondas (800W)", "Refrigerador Clase A", 
+                "Aire acondicionado calor (9000 BTU)", "Lavadora/Secadora Clase A (lavado)", "Lavadora/Secadora Clase A (secado)",
+                "Pantalla 45 Clase A", "Licuadora", "Aspiradora (1400W)"
+            ], 
+            y: [
+                900.00, 98.33, 125.00, 13.33, 126.67, 760.00, 35.00, 121.67, 16.67, 6.67, 116.67
+            ],
+            marker: {
+                color: [],  
+                colorscale: 'Blues', 
+                showscale: true
+            }
+            }];
+        
+        // Sortear los datos para que se vea mejor
+        let sortedData = data[0].x.map((value, index) => {
+            return { x: value, y: data[0].y[index] };
+        });
+
+        sortedData.sort((a, b) => b.y - a.y);
+        data[0].x = sortedData.map(item => item.x);
+        data[0].y = sortedData.map(item => item.y);
+
+        const maxY = Math.max(...data[0].y);
+        const minY = Math.min(...data[0].y);
+        // Mapea los valores de y de 0 a 1 en escala "azules"
+        data[0].marker.color = data[0].y.map(value => (value - maxY) / (minY - maxY)); 
+
+
+        
+        const layout = {
+            title: 'Consumo Eléctrico de Electrodomésticos',
+            xaxis: {
+                title: 'Electrodomésticos'
+            },
+            yaxis: {
+                title: 'Consumo (horas de luz)'
+            }
+        };
+
+        Plotly.newPlot('graph', data, layout);
+
+    </script>
 </body>
 
 
-<script>
-	
-	const image1 = document.getElementById('cocina');
-        const image2 = document.getElementById('dormitorio');
-	const graphDiv = document.getElementById('graph');
-	const selector = document.getElementById('roomSelect');
-
-	// Los círculos que señalan se ponen en estos puntos
-	const x = 2; 
-    const y = 11; 
-    const x2 = 9;
-    const y2 = 16;
-    const radius = 0.5;
-
-	// Para gráfico dormitorio, no se bien como lo vamos a hacer si tenemos dos graficos
-	const data = [{
-            x: [],
-            y: [],
-            mode: 'markers',
-            type: 'scatter',
-            marker: {
-                size: 1 
-            }
-        }];
-
-        const layout = {
-            xaxis: { range: [0, 30], showgrid: false, showline: false, zeroline: false, showticklabels: false},
-            yaxis: { range: [0, 30], showline: false, zeroline: false, showticklabels: false},
-
-            images: [
-                {
-                    x: 0,
-                    y: 0,
-                    sizex: 0.5,
-                    sizey: 0.75,
-                    xanchor: "rigth",
-                    xref: "paper",
-                    yanchor: "bottom",
-                    yref: "paper",
-                    source: "https://raw.githubusercontent.com/AlonsoCasanova/Proyecto_Infovis/refs/heads/main/dorm2.jpg"
-                }
-            ],
-            shapes: [
-                {
-                    type: 'circle',
-                    xref: 'x',
-                    yref: 'y',
-                    x0: x - radius,
-                    y0: y - radius,
-                    x1: x + radius,
-                    y1: y + radius,
-                    fillcolor: 'blue',
-                    opacity: 0.5,
-                    line: {
-                        color: 'blue',
-                    },
-                },
-                {
-                    type: 'line',
-                    xref: 'x',
-                    yref: 'y',
-                    x0: x + radius * Math.cos(45),   
-                    y0: y + radius * Math.sin(45),
-                    x1: x + radius * Math.cos(45) + 5,    
-                    y1: y + radius * Math.sin(45) + 5,
-                    fillcolor: 'blue',
-                    opacity: 0.5,
-                    line: {
-                        color: 'blue',
-                    },
-                },
-                {
-                    type: 'line',
-                    xref: 'x',
-                    yref: 'y',
-                    x0: x + radius * Math.cos(45) + 5,     // Empieza donde termina la otra
-                    y0: y + radius * Math.sin(45) + 5,
-                    x1: x + radius * Math.cos(45) + 20,     
-                    y1: y + radius * Math.sin(45) + 5,
-                    fillcolor: 'blue',
-                    opacity: 0.5,
-                    line: {
-                        color: 'blue',
-                    }
-                },
-
-                {
-                    type: 'circle',
-                    xref: 'x',
-                    yref: 'y',
-                    x0: x2 - radius,
-                    y0: y2 - radius,
-                    x1: x2 + radius,
-                    y1: y2 + radius,
-                    fillcolor: 'blue',
-                    opacity: 0.5,
-                    line: {
-                        color: 'blue',
-                    },
-                },
-                {
-                    type: 'line',
-                    xref: 'x',
-                    yref: 'y',
-                    x0: x2 + radius * Math.cos(45),   
-                    y0: y2 - radius * Math.sin(45),
-                    x1: x2 + radius * Math.cos(45) + 3,    
-                    y1: y2 - radius * Math.sin(45) - 3,
-                    fillcolor: 'blue',
-                    opacity: 0.5,
-                    line: {
-                        color: 'blue',
-                    },
-                },
-                {
-                    type: 'line',
-                    xref: 'x',
-                    yref: 'y',
-                    x0: x2 + radius * Math.cos(45) + 3,     // Empieza donde termina la otra
-                    y0: y2 - radius * Math.sin(45) - 3,
-                    x1: x2 + radius * Math.cos(45) + 15,     
-                    y1: y2 - radius * Math.sin(45) - 3,
-                    fillcolor: 'blue',
-                    opacity: 0.5,
-                    line: {
-                        color: 'blue',
-                    }
-                }
-            ],
-            annotations: [
-                {
-                    x: 25.5, 
-                    y: 16.3, 
-                    xref: 'x',
-                    yref: 'y',
-                    text: 'Televisor: 16.67 horas',
-                    showarrow: false,
-                    bgcolor: 'blue', // Background color for the annotation box
-                    bordercolor: 'blue', // Border color for the annotation box
-                    borderwidth: 3,
-                    font: {
-                        size: 12,
-                        color: 'white' // Text color
-                    },
-                },
-                {
-                    x: 24, 
-                    y: 12, 
-                    xref: 'x',
-                    yref: 'y',
-                    text: 'Aire Acondicionado frio: 820 horas',
-                    showarrow: false,
-                    bgcolor: 'blue', // Background color for the annotation box
-                    bordercolor: 'blue', // Border color for the annotation box
-                    borderwidth: 3,
-                    font: {
-                        size: 12,
-                        color: 'white' // Text color
-                    },
-                }
-            ],
-            showlegend: false
-        };
-	
-	// Escuchar el cambio en el menú de selección y actualizar el gráfico
-	selector.addEventListener('change', function() {
-		const selectedRoom = this.value;  
-
-		image1.style.display = 'none';
-            	image2.style.display = 'none';
-		graphDiv.style.display = 'none';
-
-            	if (selectedRoom === 'cocina') {
-                	image1.style.display = 'block'; 
-            	} else if (selectedRoom === 'dormitorio') {
-			graphDiv.style.display = 'block';
-                	// image2.style.display = 'block'; 
-            	} else {
-			document.write("<p>Hay un error con el control de flujo</p>");
-		}
-	});
-
-	Plotly.newPlot('graph', data, layout);
-	
-</script>
-</html>
