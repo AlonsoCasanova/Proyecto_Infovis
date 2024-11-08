@@ -3,7 +3,7 @@
 <head>
   <title>Pruebas</title>
   <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
-  <style>
+  <!-- <style>
     #graph
     {
         position: absolute;
@@ -15,58 +15,74 @@
         right: 0px;
         z-index: 1;
     }
-  </style>
+  </style> -->
 
 </head>
 <body>
   <div id='myDiv'>
-
-  <!-- <img id="dormitorio" src="dorm1.jpg" alt="dormitorio"> --><!--  width="600" height="500"> -->
   <div id="graph"></div>
 
   </div>
     <script>
+
+        // Datos:
+        var artefactos = ["Calefactor Eléctrico", "Cocina eléctrica", "Aire Acond. frío", "Aire Acond. caliente", "Ducha corta (40°C)", "Refrigerador Clase D", "Ampolleta Incand.", "Secadora 11 Clase D", "Refrigerador Clase A", "Horno Eléctrico", "Secadora 11 Clase A", "Aspiradora", "Hervidor", "Plancha", "Secador de pelo", "Lavadora 11 Clase D", "Pantalla 45\" Clase D", "Lavadora 11 Clase A", "Ampolleta LED", "Pantalla 45\" Clase A", "Microondas", "Licuadora"];
+        var usos = ["Calefacción", "Cocina", "Calefacción", "Calefacción", "Baño/Aseo Personal", "Cocina", "Luz", "Lavado", "Cocina", "Cocina", "Lavado", "Lavado", "Cocina", "Lavado", "Baño/Aseo Personal", "Lavado", "Entretenimiento", "Lavado", "Luz", "Entretenimiento", "Cocina", "Cocina"];
+        var Tiempo_Uso_unitario = ["1 hora", "30 minutos", "1 hora", "1 hora", "3 minutos", "continuo mensual", "4 horas", "1 secado", "continuo mensual", "1 ciclo estándar", "1 secado", "10 minutos", "1 litro", "1 hora", "5 minutos", "1 lavado", "1 hora", "1 lavado", "4 horas", "1 hora", "1 minuto", "1 minuto"];
+        var Consumo_por_uso_KWh = [2000, 900, 820, 760, 918, 15000, 240, 3120, 7583, 870, 1690, 233, 99, 1200, 150, 760, 37, 490, 28, 16, 13, 7];
+        var Gasto_por_uso_pesos = ["$380", "$171", "$156", "$144", "$174", "$2.850", "$46", "$593", "$1.441", "$165", "$321", "$44", "$19", "$228", "$29", "$144", "$7", "$93", "$5", "$3", "$3", "$1"];
+        var Cant_de_usos_por_persona = ["2 veces/día", "2 veces/día", "2 veces/día", "2 veces/día", "1 vez/día", "continuo mensual", "2 veces/día", "1 vez/semana", "continuo mensual", "2 veces/semana", "1 vez/semana", "1 vez/día", "2 veces/día", "1 vez/semana", "1 vez/día", "1 vez/semana", "2 veces/día", "1 vez/semana", "2 veces/día", "2 veces/día", "2 veces/día"];
+        var Consumo_mensual_KWh = [120.0, 54.0, 49.2, 45.6, 27.5, 15.0, 14.4, 13.5, 7.6, 7.5, 7.3, 7.0, 5.9, 5.2, 4.5, 3.3, 2.2, 2.1, 1.7, 1.0, 0.8, 0.4];
+        var Gasto_mensual_pesos = [22800, 10260, 9348, 8664, 5234, 2850, 2736, 2569, 1441, 1433, 1391, 1330, 1125, 988, 855, 626, 422, 403, 319, 182, 152, 76];
+
         var data = [{
             type: 'bar',
-            x: [
-                "Cocina eléctrica (1800W)", "Hervidor", "Horno eléctrico", "Microondas (800W)", "Refrigerador Clase A", 
-                "Aire acondicionado calor (9000 BTU)", "Lavadora/Secadora Clase A (lavado)", "Lavadora/Secadora Clase A (secado)",
-                "Pantalla 45 Clase A", "Licuadora", "Aspiradora (1400W)"
-            ], 
-            y: [
-                900.00, 98.33, 125.00, 13.33, 126.67, 760.00, 35.00, 121.67, 16.67, 6.67, 116.67
-            ],
+            x: artefactos,
+            y: Gasto_mensual_pesos,
             marker: {
                 color: [],  
-                colorscale: 'Blues', 
-                showscale: true
+                /* colorscale: 'Cividis', 
+                showscale: true */
             }
             }];
         
-        // Sortear los datos para que se vea mejor
-        let sortedData = data[0].x.map((value, index) => {
-            return { x: value, y: data[0].y[index] };
-        });
-
-        sortedData.sort((a, b) => b.y - a.y);
-        data[0].x = sortedData.map(item => item.x);
-        data[0].y = sortedData.map(item => item.y);
-
-        const maxY = Math.max(...data[0].y);
+        
+        /* const maxY = Math.max(...data[0].y);
         const minY = Math.min(...data[0].y);
         // Mapea los valores de y de 0 a 1 en escala "azules"
-        data[0].marker.color = data[0].y.map(value => (value - maxY) / (minY - maxY)); 
+        data[0].marker.color = data[0].y.map(value => (value - maxY) / (minY - maxY));  */
 
+        // Agregar colores por categoría/uso
+        var uso, color;
+        for (let i = 0; i < data[0].x.length; i++) {
+            uso = usos[i];
+            if ( uso=="Calefacción" ){
+                color = "red";
+            } else if ( uso=="Cocina" ){
+                color = "blue";
+            } else if ( uso=="Luz" ){
+                color = "yellow";
+            } else if ( uso=="Baño/Aseo Personal"){
+                color = "purple";
+            } else if( uso=="Lavado"){
+                color = "green";
+            } else {
+                color = "black";
+            }
+            data[0].marker.color.push(color);
+        }
 
         
         const layout = {
-            title: 'Consumo Eléctrico de Electrodomésticos',
+            title: 'Costo del Consumo Eléctrico de Electrodomésticos',
             xaxis: {
                 title: 'Electrodomésticos'
             },
             yaxis: {
-                title: 'Consumo (horas de luz)'
-            }
+                title: 'Costo Mensual'
+            },
+            width: 1000, 
+            height: 700, 
         };
 
         Plotly.newPlot('graph', data, layout);
