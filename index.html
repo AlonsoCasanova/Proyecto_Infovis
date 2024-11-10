@@ -3,19 +3,6 @@
 <head>
   <title>Pruebas</title>
   <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
-  <!-- <style>
-    #graph
-    {
-        position: absolute;
-		width: 800px;
-		height: 800px;
-		border: 0px solid #333;
-		left: 0px;
-		top: 0px;
-        right: 0px;
-        z-index: 1;
-    }
-  </style> -->
 
 </head>
 <body>
@@ -40,46 +27,44 @@
             x: artefactos,
             y: Gasto_mensual_pesos,
             marker: {
-                color: [],  
-                /* colorscale: 'Cividis', 
-                showscale: true */
+                color: [],
             }
             }];
         
-        
-        /* const maxY = Math.max(...data[0].y);
-        const minY = Math.min(...data[0].y);
-        // Mapea los valores de y de 0 a 1 en escala "azules"
-        data[0].marker.color = data[0].y.map(value => (value - maxY) / (minY - maxY));  */
-
         // Agregar colores por categoría/uso
         var uso, color;
         for (let i = 0; i < data[0].x.length; i++) {
             uso = usos[i];
             if ( uso=="Calefacción" ){
-                color = "red";
+                color = "rgba(230, 57, 70, 1)";
             } else if ( uso=="Cocina" ){
-                color = "blue";
+                color = "rgba(58, 90, 64, 1)";
             } else if ( uso=="Luz" ){
-                color = "yellow";
+                color = "rgba(168, 218, 220, 1)";
             } else if ( uso=="Baño/Aseo Personal"){
-                color = "purple";
+                color = "rgba(69, 123, 157, 1)";
             } else if( uso=="Lavado"){
-                color = "green";
+                color = "rgba(29, 53, 87, 1)";
             } else {
-                color = "black";
+                color = "rgba(188, 108, 37, 1)";
             }
             data[0].marker.color.push(color);
         }
 
+        var costo_total = 0;
+        for (let i = 0; i < data[0].x.length; i++) {
+            costo_total += Gasto_mensual_pesos[i];
+        }
         
         const layout = {
             title: 'Costo del Consumo Eléctrico de Electrodomésticos',
             xaxis: {
-                title: 'Electrodomésticos'
+                title: 'Electrodomésticos',
+                tickangle: -40,
+                automargin: true
             },
             yaxis: {
-                title: 'Costo Mensual'
+                title: 'Costo Mensual (CLP)'
             },
             width: 1000, 
             height: 700, 
