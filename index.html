@@ -172,6 +172,8 @@
     graphDiv.on('plotly_unhover', function(data) {
       imgElement.style.display = "none"; // Ocultar la imagen cuando el mouse sale de la barra
       textElement.style.display = "none"; // Ocultar el texto cuando el mouse sale de la barra
+      audioElement.pause();
+      audioElement.currentTime = 0;
     });
   </script>
 </body>
