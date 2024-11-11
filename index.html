@@ -52,9 +52,14 @@
             x: artefactos,
             y: Gasto_mensual_pesos,
             marker: {
-                color: [],
+            color: Gasto_mensual_pesos,
+            colorscale: [
+            [0, 'rgba(173, 216, 230, 1)'],  // Celeste claro
+            [1, 'rgba(0, 0, 139, 1)'], // Azul intenso
+            ],
+            reversescale: false
             }
-            }];
+        }];
         
         // Agregar colores por categoría/uso
         var uso, color;
