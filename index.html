@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pruebas</title>
-  <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
-
+    <title>Pruebas</title>
+    <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
+    <style>
+        #container {
+            display: flex;
+        }
+        #graph {
+            flex: 1;
+        }
+        #info {
+            flex: 1;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #electrodomesticoText {
+            font-size: 20px;
+            display: none;
+            margin-top: 10px;
+        }
+        #electrodomesticoImg {
+            width: 200px;
+            height: auto;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <div id='myDiv'>
-  <div id="graph"></div>
-
-  </div>
+    <div id="container">
+        <div id="graph"></div>
+        <div id="info">
+            <p id="electrodomesticoText"></p>
+            <img id="electrodomesticoImg" src="" alt="Electrodoméstico">
+        </div>
+    </div>
     <script>
 
         // Datos:
@@ -57,14 +82,14 @@
         }
         
         const layout = {
-            title: 'Costo del Consumo Eléctrico de Electrodomésticos',
+            title: 'Costo promedio del Consumo de los Electrodomésticos',
             xaxis: {
                 title: 'Electrodomésticos',
                 tickangle: -40,
                 automargin: true
             },
             yaxis: {
-                title: 'Costo Mensual (CLP)'
+                title: 'Costo Mensual (CLP) promedio'
             },
             width: 1000, 
             height: 700, 
@@ -72,7 +97,78 @@
 
         Plotly.newPlot('graph', data, layout);
 
-    </script>
-</body>
+    // Lista de sonidos para cada barra
+    var sonidos = [
+      "audios/estufa.mp3", "audios/cocinae.mp3", "audios/aireacondF.mp3", "audios/aireacondC.mp3", 
+      "audios/ducha.mp3", "audios/refrigeradorD.mp3", "audios/bombilla.mp3", "audios/secadoraropaD.mp3", 
+      "audios/refrigeradorA.mp3", "audios/hornoe.mp3", "audios/secadoraropaA.mp3", "audios/aspiradora.mp3", 
+      "audios/hervidor.mp3", "audios/plancha.mp3", "audios/secadorapelo.mp3", "audios/lavadoraD.mp3", "audios/pantallaD.mp3", 
+      "audios/lavadoraA.mp3", "audios/bombillaLED.mp3", "audios/pantallaA.mp3", "audios/microondas.mp3", "audios/licuadora.mp3"
+    ];
 
+    var audio = new Audio(); 
+
+    var graphDiv = document.getElementById('graph');
+    graphDiv.on('plotly_hover', function(data) {
+      var pointIndex = data.points[0].pointIndex; 
+      audio.src = sonidos[pointIndex]; 
+      audio.currentTime = 0; 
+      audio.play(); 
+    });
+
+    // Lista de imágenes para cada electrodoméstico
+    var imagenes = [
+      "sprays/estufa.png", "sprays/cocina.png", "sprays/aireacond.png", "sprays/aireacond.png", "sprays/ducha.png",
+      "sprays/refriD.png", "sprays/bombilla.png", "sprays/secadoraD.png", "sprays/refriA.png", "sprays/hornoe.png",
+      "sprays/secadoraA.png", "sprays/aspiradora.png", "sprays/hervidor.png", "sprays/plancha.png", "sprays/secadorapelo.png",
+      "sprays/lavadoraD.png", "sprays/pantallaD.png", "sprays/lavadoraA.png", "sprays/bombillaled.png", "sprays/pantallaA.png",
+      "sprays/microondas.png", "sprays/licuadora.png"
+    ];
+
+    var descripciones = [
+    "Calefactor eléctrico para el invierno de 2000W su costo mensual estimado 22800 clp$ ",
+    "Cocina eléctrica de 1800W su costo mensual estimado es de 10260 clp$",
+    "Aire acondicionado para enfriar de 2600W su costo mensual estimado es de 9348 clp$",
+    "Aire acondicionado para calentar de 2600W su costo mensual estimado es de 8664 clp$",
+    "Ducha rápida de 40°C su costo mensual estimado es de 5234 clp$",
+    "Refrigerador de clase D de eficiencia energetica promedio, su costo mensual estimado es de 2850 clp$",
+    "Ampolleta incandescente de alto consumo de 60W su costo mensual estimado es de 2736 clp$",
+    "Secadora clase D de eficiencia energetica promedio, su costo mensual estimado es de 2569 clp$",
+    "Refrigerador clase A de alta eficiencia energética, su costo mensual estimado es de 1441 clp$",
+    "Horno eléctrico de 2500W su costo mensual estimado es de 1433 clp$",
+    "Secadora clase A de alta eficiencia energética su costo mensual estimado es de 1391 clp$",
+    "Aspiradora para limpieza del hogar de 1200W su costo mensual estimado es de 1330 clp$",
+    "Hervidor para calentar agua de 1800W su costo mensual estimado es de 1125 clp$",
+    "Plancha para la ropa de 1200W su costo mensual estimado es de 988 clp$",
+    "Secador de pelo de 1800W su costo mensual estimado es de 855 clp$",
+    "Lavadora clase D de eficiencia energetica promedio, su costo mensual estimado es de 626 clp$",
+    "Pantalla clase D de eficiencia enefgética promedio, su costo mensual estimado es de 422 clp$",
+    "Lavadora clase A de alta eficiencia energética, su costo mensual estimado es de 403 clp$",
+    "Ampolleta LED de bajo consumo de 10W su costo mensual estimado es de 319 clp$",
+    "Pantalla clase A de alta eficiencia energética, su costo mensual estimado es de 182 clp$",
+    "Microondas de 800W su costo mensual estimado es de 152 clp$",
+    "Licuadora de 850W su costo mensual estimado es de 76 clp$"
+    ];
+
+
+    var imgElement = document.getElementById("electrodomesticoImg");
+    var textElement = document.getElementById("electrodomesticoText");
+
+    var graphDiv = document.getElementById('graph');
+    graphDiv.on('plotly_hover', function(data) {
+      var pointIndex = data.points[0].pointIndex; // Índice de la barra sobre la que se pasa el mouse
+      imgElement.src = imagenes[pointIndex]; // Cambiar la imagen correspondiente
+      imgElement.style.display = "block"; // Mostrar la imagen
+
+      textElement.innerText = descripciones[pointIndex]; // Mostrar la descripción del electrodoméstico
+      textElement.style.display = "block"; // Mostrar el texto
+    });
+
+    graphDiv.on('plotly_unhover', function(data) {
+      imgElement.style.display = "none"; // Ocultar la imagen cuando el mouse sale de la barra
+      textElement.style.display = "none"; // Ocultar el texto cuando el mouse sale de la barra
+    });
+  </script>
+</body>
+</html>
 
