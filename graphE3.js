@@ -25,17 +25,13 @@ var time;
 Protobject.onReceived((data) => {
   time = (Date.now() - startTime) / 1000;
   xData.push(time);
-  let array = new Array(xData.length).fill(0.5);
   if (data.show=="1") {
 	yData.push(0.5)
-  	// Plotly.newPlot('myDiv', datos);
   } else if (data.show=="2") {
 	yData.push(1)    
-  	// Plotly.newPlot('myDiv', datos);
   } 
   else {
     yData.push(0)
-    // Plotly.newPlot('myDiv', dataOff);
   }
   var datos = [
       {
@@ -44,7 +40,7 @@ Protobject.onReceived((data) => {
         type: 'scatter'
       }
     ];
-  Plotly.newPlot('myDiv', datos);
+  Plotly.newPlot('myDiv', datos, layout);
 });
 
 
