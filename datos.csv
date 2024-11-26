@@ -1,0 +1,20 @@
+artefacto,Tiempo_Uso_unitario,Consumo_por_uso(KWh),Gasto_por_uso(pesos),Cant_de_usos_por_persona,Consumo_mensual(KWh),Gasto_mensual(pesos),usos
+Calefactor Eléctrico 2 kW, 1 hora,2000,380, 2 veces/día,120.0,22800,Calefacción
+Cocina eléctrica 1800 Watts, 30 minutos,900,171, 2 veces/día,54.0,10260,Cocina
+Aire Acondicionado frío (9000 BTU), 1 hora,820,156, 2 veces/día,49.2,9348,Calefacción
+Aire Acondicionado calor (9000 BTU), 1 hora,760,144, 2 veces/día,45.6,8664,Calefacción
+Ducha corta (40°C), 3 minutos,918,174, 1 vez/día,27.5,5234,Baño/Aseo Personal
+Ampolleta Incandescente (60 Watts), 4 horas,240,46, 2 veces/día,14.4,2736,Luz
+Refrigerador Clase A, continuo mensual,7583,49, continuo mensual,7.6,1441,Cocina
+Horno Eléctrico, 30 minutos,870,165, 0.28 veces/día,7.5,1433,Cocina
+Lavadora/Secadora 11 Clase A, 30 minutos,1690,321, 0.14 veces/día,7.3,1391,Lavado
+Aspiradora 1400 Watts, 10 minutos,233,44, 1 vez/día,7.0,1330,Lavado
+Hervidor, 5 minutos,99,19, 2 veces/día,5.9,1125,Cocina
+Plancha 1200 Watts, 1 hora,1200,228, 0.14 veces/día,5.2,988,Lavado
+Secador de pelo 1800 Watts, 5 minutos,150,29, 1 vez/día,4.5,855,Baño/Aseo Personal
+"Pantalla 45"" Clase D", 1 hora,37,7, 2 veces/día,2.2,422,Entretenimiento
+Lavadora/Secadora 11 Clase A, 30 minutos,490,93, 0.14 veces/día,2.1,403,Lavado
+Ampolleta LED (7 watts = 60 watts incandescente), 4 horas,28,5, 2 veces/día,1.7,319,Luz
+"Pantalla 45"" Clase A", 1 hora,16,3, 2 veces/día,1.0,182,Entretenimiento
+Microondas 800 Watts, 1 minuto,13,3, 2 veces/día,0.8,152,Cocina
+Licuadora 400 Watts, 1 minuto,7,1, 2 veces/día,0.4,76,Cocina
