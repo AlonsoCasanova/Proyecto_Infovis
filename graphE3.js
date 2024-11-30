@@ -4,14 +4,18 @@ import Protobject from './js/protobject.js'; // Importa el objeto Protobject par
 document.body.innerHTML = `<div id='myDiv' style="width: 850px; height=600px"></div>`;
 
 var layout = {
-    title: 'Gasto Monetario de Electrodomésticos',
+    title: 'Gasto Acumulado de Electrodomésticos',
     height: 500,  
     width: 750,   
     xaxis: {
         title: 'Tiempo'
     },
     yaxis: {
-        title: 'Gasto(pesos/min)'
+        title: 'Gasto acumulado(pesos)',
+      	tick0: 0,  
+      	range: [0, 10],  // Fixed scale: the y-axis will go from 0 to 60
+        zeroline: true,  // Show the zero line
+        showgrid: true,  // Show gridlines
     },
   	line: {
         color: 'blue',      
@@ -30,18 +34,19 @@ var time;
 Protobject.onReceived((data) => {
   time = (Date.now() - startTime) / 1000;
   xData.push(time);
+  console.log(time)
   if (data.show=="1") {
-	yData.push(0.5)
+	yData.push(yData.at(-1) + 0.5)
   } else if (data.show=="2") {
-	yData.push(1)    
+	yData.push(yData.at(-1) + 1)    
   } 
   else {
-    yData.push(0)
+    yData.push(yData.at(-1))
   }
   
-  if (xData.length > 60){
-  	xData = xData.slice(-60);	
-    yData = yData.slice(-60);
+  if (xData.length > 12){
+  	xData = xData.slice(-12);	
+    yData = yData.slice(-12);
   }
   var datos = [
       {
