@@ -9,13 +9,13 @@ let prev = 0;
 
 PresenceSensor.onData((similarity) => {
   console.log("Image similarity:" + similarity);
-  if (similarity<0.7)  {
+  if (similarity<0.75)  {
   	Protobject.send({ show: '2' }).to('graph.js');
     if (prev != 2){
     	Protobject.send({ play: '2' }).to('sound.js');
       	prev = 2;
     }
-  } else if (similarity<0.85) {
+  } else if (similarity<0.93) {
     Protobject.send({ show: '1' }).to('graph.js');
     if (prev != 1){
     	Protobject.send({ play: '1' }).to('sound.js');
