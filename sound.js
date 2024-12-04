@@ -14,7 +14,7 @@ player.onInstrumentLoaded(() => {
 
 Protobject.onReceived((data) => {
 	if (data.play=="1") {
-		player.play("C2"); // Play note A1
+		player.play("C2");
     }
   	if (data.play=="2") {
     	player.play("G2")	
