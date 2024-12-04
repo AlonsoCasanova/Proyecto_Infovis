@@ -54,9 +54,9 @@ Protobject.onReceived((data) => {
     prev = 0;
   }
   
-  if (xData.length > 12){
-  	xData = xData.slice(-12);	
-    yData = yData.slice(-12);
+  if (xData.length > 24){
+  	xData = xData.slice(-24);	
+    yData = yData.slice(-24);
   }
   
   if (diff == true){
